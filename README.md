@@ -28,7 +28,7 @@
     using your CLI created by @siddhantprateek
 ```
 
-## To run Go-GPT using Docker 🐳
+## 🐳 To run Go-GPT using Docker 
 
 To run Go-GPT with Docker, use the following command.
 ```bash
