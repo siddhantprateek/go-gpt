@@ -15,6 +15,19 @@
     make go-gpt
    ```
 
+
+```bash
+	$ go-gpt
+     ____               ____ ____ _____ 
+	/ ___|  ___        / ___|  _ \_   _|
+	| |  _ / _ \ _____| |  _| |_) || |  
+	| |_| | (_) |_____| |_| |  __/ | |  
+	\____| \___/       \____|_|    |_|  
+
+  Go-GPT is a simple way to communicate with OpenAI  
+    using your CLI created by @siddhantprateek
+```
+
 ## To run Go-GPT using Docker 🐳
 
 To run Go-GPT with Docker, use the following command.
