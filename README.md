@@ -5,7 +5,9 @@
     A simple way to communicate with OpenAI using your CLI.
 </p>
 
+![go-gpt-cli-thumb](https://user-images.githubusercontent.com/43869046/229339476-4bb3d0fa-f03c-4142-b825-7d7cc8ef3003.png)
 
+---
 
 ## ⚙️ Installation
 
