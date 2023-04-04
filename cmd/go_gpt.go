@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"os"
 
+	api "github.com/siddhantprateek/go-gpt/core"
 	commands "github.com/siddhantprateek/go-gpt/core/commands"
+
 	"github.com/spf13/cobra"
 )
 
@@ -25,7 +27,12 @@ var author string
 
 func main() {
 
-	rootCmd := &cobra.Command{Use: "app"}
+	// fmt.Println(chatgpt.ChatGPT("What is Iot"))
+	// api.LatestCoinData()
+
+	fmt.Println(api.RapidChatGPT("Hello"))
+
+	rootCmd := &cobra.Command{Use: "go-gpt"}
 	rootCmd.AddCommand(InitCmd())
 	rootCmd.AddCommand(
 		commands.Echos(),
@@ -41,17 +48,16 @@ func main() {
 }
 
 func InitCmd() *cobra.Command {
-
 	fmt.Printf("%s\n\n", go_gpt_greeting)
 
 	gpt_cmd := &cobra.Command{
 		Use:   "Go-GPT",
 		Short: "Go-GPT is a simple openAI CLI built using Go.",
 		Long:  `All software has versions. This is Hugo's`,
+		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
 			fmt.Println("Hello, " + args[0] + "!")
 		},
-		Args: cobra.ExactArgs(1),
 	}
 
 	gpt_cmd.Flags().StringVarP(&Source, "source", "s", "", "Source directory to read from")
