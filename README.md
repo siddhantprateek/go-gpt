@@ -9,6 +9,16 @@
 
 ---
 
+## Application Features
+
+### 👌 Features
+- Currently `Go-GPT` uses OpenAI's `gpt-3.5-turbo` model. While building this project `GPT-4` and `gpt-4-32k` has already been released on 14 March, 2023.
+- Support for `GPT-4` model (*coming soon*...)
+
+### ⚡Performance
+- `GPT-3` language model currently have limited knowledge of the world until September 2021, soon after upgrading to `GPT-4`, it will have better results.
+- `GPT-3` language model can’t produce video, sound, or images currently.
+
 ## ⚙️ Installation
 
 - Golang `1.20` or higher is required to build and run the project. You can find the installer on the official Golang download page [Go.dev](go.dev).
@@ -17,10 +27,11 @@
     make go-gpt
    ```
 
+---
 
 ```bash
-	$ go-gpt
-         ____               ____ ____ _____ 
+$ go-gpt
+     ____               ____ ____ _____ 
 	/ ___|  ___        / ___|  _ \_   _|
 	| |  _ / _ \ _____| |  _| |_) || |  
 	| |_| | (_) |_____| |_| |  __/ | |  
