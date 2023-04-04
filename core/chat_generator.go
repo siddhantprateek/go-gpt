@@ -5,12 +5,14 @@ import (
 	"fmt"
 
 	openai "github.com/sashabaranov/go-openai"
+	config "github.com/siddhantprateek/go-gpt/config"
 )
 
-func ChatGPT() string {
+func ChatGPT(chat_message string) string {
 
 	// Provide the OpenAI API key
-	client := openai.NewClient("")
+	openai_apiKey := config.GetEnv()
+	client := openai.NewClient(openai_apiKey)
 	resp, err := client.CreateChatCompletion(
 		context.Background(),
 		openai.ChatCompletionRequest{
@@ -18,7 +20,7 @@ func ChatGPT() string {
 			Messages: []openai.ChatCompletionMessage{
 				{
 					Role:    openai.ChatMessageRoleUser,
-					Content: "Hello",
+					Content: chat_message,
 				},
 			},
 		},
