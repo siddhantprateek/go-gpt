@@ -13,11 +13,20 @@ import (
 	models "github.com/siddhantprateek/go-gpt/model"
 )
 
-func RapidChatGPT(content string) string {
+type GPTInstance struct {
+	prompt_token      int
+	completion_tokens int
+	total_tokens      int
+}
+
+func (g *GPTInstance) RapidChatGPT(content string) string {
 
 	rapid_url := "https://openai80.p.rapidapi.com/chat/completions"
 
+	// set model
 	model := "gpt-3.5-turbo"
+
+	// Request payload
 	var msg []models.Messages
 	msg = append(msg, models.Messages{
 		Role:    "user",
@@ -32,6 +41,7 @@ func RapidChatGPT(content string) string {
 		log.Fatal(err)
 	}
 
+	// Creating POST request to openai url
 	req, err := http.NewRequest("POST", rapid_url, bytes.NewBuffer(payload))
 	if err != nil {
 		log.Fatal(err)
@@ -80,7 +90,34 @@ func RapidChatGPT(content string) string {
 	// 	panic(err)
 	// }
 	// content := completion.Choices[0].Message.Content
-	responseContent := chatResponse.Choices[0].Message.Content
-	return responseContent
 
+	g.completion_tokens = chatResponse.Usage.CompletionTokens
+	g.prompt_token = chatResponse.Usage.PromptTokens
+	g.total_tokens = chatResponse.Usage.TotalTokens
+
+	responseContent := chatResponse.Choices[0].Message.Content
+	// Remove the file after the response
+	// err = os.Remove("response.json")
+	// if err != nil {
+	// 	log.Fatal("Unable to remove the response file.")
+	// }
+	return responseContent
+}
+
+// desp: function to keep track of total token usage
+// returns: int(total_tokens)
+func (g *GPTInstance) GetTotalTokens() int {
+	return g.total_tokens
+}
+
+// desp: function to keep track of total completion token usage
+// returns: int(total_tokens)
+func (g *GPTInstance) GetCompletionTokens() int {
+	return g.completion_tokens
+}
+
+// desp: function to keep track of total prompt token usage
+// returns: int(total_tokens)
+func (g *GPTInstance) GetPromptToken() int {
+	return g.prompt_token
 }
