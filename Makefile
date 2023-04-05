@@ -8,4 +8,4 @@ go-build-win:
 	@GOOS=windows GOARCH=amd64 go build -o bin/go-gpt cmd/go_gpt.go
 
 go-build-linux:
-	@GOOS=linux GOARCH=amd64 go build -o bin/go-gpt cmd/go_gpt.go
+	@GOOS=linux GOARCH=amd64 go build -o bin/linux/go-gpt cmd/go_gpt.go
