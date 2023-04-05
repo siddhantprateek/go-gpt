@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 
 	services "github.com/siddhantprateek/go-gpt/core"
@@ -72,4 +73,39 @@ func ChatCompletion3() *cobra.Command {
 	}
 
 	return cmdGPT3
+}
+
+func GPTImage() *cobra.Command {
+
+	cmdGPTImage := &cobra.Command{
+		Use:   "image [image description.]",
+		Short: "Generate image using OpenAI",
+		Long:  "Generate image using OpenAI.",
+		Args:  cobra.MinimumNArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			img1, img2 := services.GPTImageGen(strings.Join(args, " "))
+			fmt.Println(img1)
+			fmt.Println(img2)
+		},
+	}
+
+	return cmdGPTImage
+}
+
+func GPTModels() *cobra.Command {
+
+	cmdModel := &cobra.Command{
+		Use:   "models",
+		Short: "Get all available OpenAI models",
+		Long:  "Get all available OpenAI models",
+		Run: func(cmd *cobra.Command, args []string) {
+			models := services.GPTModels()
+			for idx, model := range models {
+				fmt.Println("[" + strconv.Itoa(idx) + "]" + ":" + model)
+			}
+
+		},
+	}
+
+	return cmdModel
 }

@@ -36,6 +36,8 @@ func main() {
 		commands.PrintName(),
 		commands.Times(),
 		commands.ChatCompletion3(),
+		commands.GPTImage(),
+		commands.GPTModels(),
 	)
 
 	if err := rootCmd.Execute(); err != nil {

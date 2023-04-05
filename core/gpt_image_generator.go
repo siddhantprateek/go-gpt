@@ -10,12 +10,12 @@ import (
 	"github.com/siddhantprateek/go-gpt/model"
 )
 
-func GPTImageGen() (string, string) {
+func GPTImageGen(image_desp string) (string, string) {
 
 	gpt_image_url := "https://openai80.p.rapidapi.com/images/generations"
 
 	reqBody := model.GPTImageReqModel{
-		Prompt: "",
+		Prompt: image_desp,
 		N:      2,
 		Size:   "",
 	}
