@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	services "github.com/siddhantprateek/go-gpt/core"
+
 	"github.com/spf13/cobra"
 )
 
@@ -53,4 +55,21 @@ func Times() *cobra.Command {
 	}
 	cmdTimes.Flags().IntVarP(&echoTimes, "times", "t", 1, "times to echo the input")
 	return cmdTimes
+}
+
+func ChatCompletion3() *cobra.Command {
+
+	cmdGPT3 := &cobra.Command{
+		Use:   "chat [string to query.]",
+		Short: "Write anything to GPT-3 chat completion.",
+		Long:  "Write anything to GPT-3 chat completion.",
+		Args:  cobra.MinimumNArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			gptClient := services.GPTInstance{}
+			responseMsg := gptClient.RapidChatGPT(strings.Join(args, " "))
+			fmt.Println(responseMsg)
+		},
+	}
+
+	return cmdGPT3
 }
