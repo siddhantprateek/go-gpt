@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	api "github.com/siddhantprateek/go-gpt/core"
 	commands "github.com/siddhantprateek/go-gpt/core/commands"
 
 	"github.com/spf13/cobra"
@@ -30,14 +29,13 @@ func main() {
 	// fmt.Println(chatgpt.ChatGPT("What is Iot"))
 	// api.LatestCoinData()
 
-	fmt.Println(api.RapidChatGPT("Hello"))
-
 	rootCmd := &cobra.Command{Use: "go-gpt"}
 	rootCmd.AddCommand(InitCmd())
 	rootCmd.AddCommand(
 		commands.Echos(),
 		commands.PrintName(),
 		commands.Times(),
+		commands.ChatCompletion3(),
 	)
 
 	if err := rootCmd.Execute(); err != nil {
