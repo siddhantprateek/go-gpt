@@ -1,1 +1,21 @@
-{"id":"chatcmpl-71eCSy3Emavqn4DnVJkVGZieGPCxT","object":"chat.completion","created":1680627212,"model":"gpt-3.5-turbo-0301","usage":{"prompt_tokens":9,"completion_tokens":10,"total_tokens":19},"choices":[{"message":{"role":"assistant","content":"Hello there! How can I assist you today?"},"finish_reason":"stop","index":0}]}
+{
+    "id": "chatcmpl-71oxC4aySjyqvrUkRS0WQvHoyBbtW",
+    "object": "chat.completion",
+    "created": 1680668550,
+    "model": "gpt-3.5-turbo-0301",
+    "usage": {
+        "prompt_tokens": 12,
+        "completion_tokens": 112,
+        "total_tokens": 124
+    },
+    "choices": [
+        {
+            "message": {
+                "role": "assistant",
+                "content": "IoT (Internet of Things) refers to the interconnection of physical devices, appliances, gadgets, and other everyday objects that are embedded with sensors, software, and network connectivity to enable them to collect, exchange and process data over the internet. The concept of IoT allows for the integration of the physical and digital world, providing real-time data analytics and insights, improving efficiency, productivity, and enhancing the quality of life for users. IoT technologies can be found in various applications, including smart homes, industrial automation, transportation, healthcare, agriculture, and many more."
+            },
+            "finish_reason": "stop",
+            "index": 0
+        }
+    ]
+}
