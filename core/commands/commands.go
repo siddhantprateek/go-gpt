@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/pterm/pterm"
 	services "github.com/siddhantprateek/go-gpt/core"
 
 	"github.com/spf13/cobra"
@@ -51,7 +52,7 @@ func Times() *cobra.Command {
 		Args: cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
 			for i := 0; i < echoTimes; i++ {
-				fmt.Println("Echo: " + strings.Join(args, " "))
+				pterm.DefaultParagraph.Println("Echo: " + pterm.LightMagenta(strings.Join(args, " ")))
 			}
 		},
 	}
