@@ -55,6 +55,11 @@ To view logs from the Docker container, use the following command:
 ```
 
 
+## 🏗️ Features to work on
+
+- [ ] Print the response in typing manner
+- [ ] Loader for during response generation process
+- [ ] Maintain `.go-gpt` just like `.git` to maintain the chats histories and responses.
 
 ## 😉 Author
 
