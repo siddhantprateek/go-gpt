@@ -25,6 +25,7 @@
 
 -  ```bash
     make go-gpt
+    make build
    ```
 
 ---
