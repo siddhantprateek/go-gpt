@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 	"strings"
 
@@ -34,7 +35,7 @@ func Echos() *cobra.Command {
 	Echo works a lot like print, except it has a child command.`,
 		Args: cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Print: " + strings.Join(args, " "))
+			log.Println("Print: " + strings.Join(args, " "))
 		},
 	}
 	return cmdEcho
@@ -108,4 +109,20 @@ func GPTModels() *cobra.Command {
 	}
 
 	return cmdModel
+}
+
+func Moderation() *cobra.Command {
+
+	cmdModeration := &cobra.Command{
+		Use:   "moderation [string *.]",
+		Short: "Text Moderation Analysis.",
+		Long:  "Text Moderation Analysis.",
+		Args:  cobra.MinimumNArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			services.GPTModeration(strings.Join(args, " "))
+
+		},
+	}
+
+	return cmdModeration
 }

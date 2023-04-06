@@ -38,6 +38,7 @@ func main() {
 		commands.ChatCompletion3(),
 		commands.GPTImage(),
 		commands.GPTModels(),
+		commands.Moderation(),
 	)
 
 	if err := rootCmd.Execute(); err != nil {
@@ -48,12 +49,13 @@ func main() {
 }
 
 func InitCmd() *cobra.Command {
+
 	fmt.Printf("%s\n\n", go_gpt_greeting)
 
 	gpt_cmd := &cobra.Command{
-		Use:   "Go-GPT",
+		Use:   "about",
 		Short: "Go-GPT is a simple openAI CLI built using Go.",
-		Long:  `All software has versions. This is Hugo's`,
+		Long:  `All software has versions. This is Go-GPTS's version 0.1.0`,
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
 			fmt.Println("Hello, " + args[0] + "!")
