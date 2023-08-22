@@ -8,14 +8,14 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/siddhantprateek/go-gpt/config"
+	config "github.com/siddhantprateek/go-gpt/config"
 	model "github.com/siddhantprateek/go-gpt/model"
 )
 
 func LatestCoinData() {
-
+	requestURL := "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest", nil)
+	req, err := http.NewRequest("GET", requestURL, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -25,7 +25,7 @@ func LatestCoinData() {
 	query.Add("limit", "5000")
 	query.Add("convert", "USD")
 
-	apiKey := config.GetCMCKey()
+	apiKey := config.GetEnv("COIN_API")
 
 	req.Header.Set("Accepts", "application/json")
 	req.Header.Add("X-CMC_PRO_API_KEY", apiKey)
@@ -36,7 +36,6 @@ func LatestCoinData() {
 		fmt.Println("Error sending request to server")
 		os.Exit(1)
 	}
-
 	defer resp.Body.Close()
 
 	var respData model.ResponseData
@@ -47,5 +46,4 @@ func LatestCoinData() {
 
 	// var data []model.Data
 	fmt.Println(respData)
-
 }

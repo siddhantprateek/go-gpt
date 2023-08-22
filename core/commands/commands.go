@@ -2,12 +2,10 @@ package commands
 
 import (
 	"fmt"
-	"log"
-	"strconv"
 	"strings"
 
 	"github.com/pterm/pterm"
-	services "github.com/siddhantprateek/go-gpt/core"
+	svc "github.com/siddhantprateek/go-gpt/core"
 
 	"github.com/spf13/cobra"
 )
@@ -26,20 +24,6 @@ func PrintName() *cobra.Command {
 	}
 
 	return cmdPrint
-}
-
-func Echos() *cobra.Command {
-	cmdEcho := &cobra.Command{
-		Use:   "echo [string to echo]",
-		Short: "Echo anything to the screen",
-		Long: `echo is for echoing anything back.
-	Echo works a lot like print, except it has a child command.`,
-		Args: cobra.MinimumNArgs(1),
-		Run: func(cmd *cobra.Command, args []string) {
-			log.Println("Print: " + strings.Join(args, " "))
-		},
-	}
-	return cmdEcho
 }
 
 func Times() *cobra.Command {
@@ -61,37 +45,33 @@ func Times() *cobra.Command {
 }
 
 func ChatCompletion3() *cobra.Command {
-
-	cmdGPT3 := &cobra.Command{
+	cmdres := &cobra.Command{
 		Use:   "chat [string to query.]",
 		Short: "Write anything to GPT-3 chat completion.",
-		Long:  "Write anything to GPT-3 chat completion.",
 		Args:  cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			gptClient := services.GPTInstance{}
-			responseMsg := gptClient.RapidChatGPT(strings.Join(args, " "))
+			// gptClient := svc.GPTInstance{}
+			responseMsg := svc.RapidChatGPT(strings.Join(args, " "))
 			fmt.Println(responseMsg)
+			// cmd.Print(responseMsg)
 		},
 	}
-
-	return cmdGPT3
+	return cmdres
 }
 
 func GPTImage() *cobra.Command {
-
-	cmdGPTImage := &cobra.Command{
+	cmdImage := &cobra.Command{
 		Use:   "image [image description.]",
 		Short: "Generate image using OpenAI",
-		Long:  "Generate image using OpenAI.",
 		Args:  cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			img1, img2 := services.GPTImageGen(strings.Join(args, " "))
+			img1, img2 := svc.ImageGeneration(strings.Join(args, " "))
 			fmt.Println(img1)
 			fmt.Println(img2)
 		},
 	}
 
-	return cmdGPTImage
+	return cmdImage
 }
 
 func GPTModels() *cobra.Command {
@@ -99,31 +79,43 @@ func GPTModels() *cobra.Command {
 	cmdModel := &cobra.Command{
 		Use:   "models",
 		Short: "Get all available OpenAI models",
-		Long:  "Get all available OpenAI models",
-		Run: func(cmd *cobra.Command, args []string) {
-			models := services.GPTModels()
+		Run: func(_ *cobra.Command, _ []string) {
+			models := svc.GetAllModels()
+			fmt.Println("All Available Models.")
+			fmt.Printf("\n%4s |  %s\n", "Model Idx", "Models")
 			for idx, model := range models {
-				fmt.Println("[" + strconv.Itoa(idx) + "]" + ":" + model)
+				fmt.Printf("%8d  :  %s\n", idx, model)
 			}
-
 		},
 	}
-
 	return cmdModel
 }
 
 func Moderation() *cobra.Command {
-
 	cmdModeration := &cobra.Command{
 		Use:   "moderation [string *.]",
 		Short: "Text Moderation Analysis.",
-		Long:  "Text Moderation Analysis.",
 		Args:  cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			services.GPTModeration(strings.Join(args, " "))
+			svc.TxtModeration(strings.Join(args, " "))
+		},
+	}
+	return cmdModeration
+}
+
+func SentimentCmd() *cobra.Command {
+	cmdSentiment := &cobra.Command{
+		Use:   "sentiment [string *.]",
+		Short: "Sentiment Analysis.",
+		Args:  cobra.MinimumNArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			response := svc.SentimentAnalysis(strings.Join(args, " "))
+
+			fmt.Println("Positive:", response.Postive)
+			fmt.Println("Negative:", response.Negative)
+			fmt.Println("Neutral:", response.Neutral)
 
 		},
 	}
-
-	return cmdModeration
+	return cmdSentiment
 }

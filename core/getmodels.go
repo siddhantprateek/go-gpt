@@ -5,30 +5,24 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/siddhantprateek/go-gpt/config"
 	"github.com/siddhantprateek/go-gpt/model"
 )
 
-func GPTModels() []string {
-
-	model_url := "https://openai80.p.rapidapi.com/models"
-
-	req, err := http.NewRequest("GET", model_url, nil)
+func GetAllModels() []string {
+	requestURL := "https://openai80.p.rapidapi.com/models"
+	req, err := http.NewRequest("GET", requestURL, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	req.Header.Add("X-RapidAPI-Key", config.GetRapidAPI())
-	req.Header.Add("X-RapidAPI-Host", "openai80.p.rapidapi.com")
+	req.Header.Add(API_KEY_TITLE, API_KEY)
+	req.Header.Add(API_KEY_HOST_TITLE, API_KEY_HOST)
 
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	defer res.Body.Close()
 
-	// Decode the response body into a GPTModelRespone struct
 	var modelReponse model.GPTModelResponse
 	err = json.NewDecoder(res.Body).Decode(&modelReponse)
 	if err != nil {

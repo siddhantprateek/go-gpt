@@ -9,9 +9,7 @@ import (
 )
 
 func ChatGPT(chat_message string) string {
-
-	// Provide the OpenAI API key
-	openai_apiKey := config.GetEnv()
+	openai_apiKey := config.GetEnv("API_KEY")
 	client := openai.NewClient(openai_apiKey)
 	resp, err := client.CreateChatCompletion(
 		context.Background(),

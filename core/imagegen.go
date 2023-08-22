@@ -6,14 +6,11 @@ import (
 	"log"
 	"net/http"
 
-	config "github.com/siddhantprateek/go-gpt/config"
 	"github.com/siddhantprateek/go-gpt/model"
 )
 
-func GPTImageGen(image_desp string) (string, string) {
-
-	gpt_image_url := "https://openai80.p.rapidapi.com/images/generations"
-
+func ImageGeneration(image_desp string) (string, string) {
+	requestURL := "https://openai80.p.rapidapi.com/images/generations"
 	reqBody := model.GPTImageReqModel{
 		Prompt: image_desp,
 		N:      2,
@@ -25,19 +22,17 @@ func GPTImageGen(image_desp string) (string, string) {
 		log.Fatal("Unable to Marshall Request Body.")
 	}
 
-	req, err := http.NewRequest("POST", gpt_image_url, bytes.NewBuffer(payload))
+	req, err := http.NewRequest("POST", requestURL, bytes.NewBuffer(payload))
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	req.Header.Add("X-RapidAPI-Key", config.GetRapidAPI())
-	req.Header.Add("X-RapidAPI-Host", "openai80.p.rapidapi.com")
+	req.Header.Add(API_KEY_TITLE, API_KEY)
+	req.Header.Add(API_KEY_HOST_TITLE, API_KEY_HOST)
 
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	defer res.Body.Close()
 
 	var imageResponse model.GPTImageModel
@@ -47,5 +42,4 @@ func GPTImageGen(image_desp string) (string, string) {
 	}
 
 	return imageResponse.Data[0].URL, imageResponse.Data[1].URL
-
 }
